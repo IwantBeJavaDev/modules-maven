@@ -23,6 +23,7 @@
     <modules>
         <module>jpa-entities</module>
         <module>jaxb-api</module>
+        <module>web-app</module>
     </modules>
 
 
