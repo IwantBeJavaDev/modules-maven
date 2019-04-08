@@ -11,7 +11,7 @@
 
 
     <properties>
-        <revision>1.0</revision>
+        <revision>1.1-SNAPSHOT</revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>8</java.version>
@@ -51,7 +51,25 @@
         </dependencies>
     </dependencyManagement>
 
+
+    <distributionManagement>
+        <repository>
+            <id>packagecloud.releases</id>
+            <url>packagecloud+https://packagecloud.io/michal-asoft/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>packagecloud.snapshots</id>
+            <url>packagecloud+https://packagecloud.io/michal-asoft/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
     <build>
+        <extensions>
+            <extension>
+                <groupId>io.packagecloud.maven.wagon</groupId>
+                <artifactId>maven-packagecloud-wagon</artifactId>
+                <version>0.0.6</version>
+            </extension>
+        </extensions>
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
