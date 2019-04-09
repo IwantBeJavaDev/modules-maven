@@ -51,6 +51,20 @@
         </dependencies>
     </dependencyManagement>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.3.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.4.0</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
 <!--    <repositories>-->
 <!--        <repository>-->
@@ -67,31 +81,16 @@
 
     <profiles>
         <profile>
-            <id>packagecloud</id>
-            <distributionManagement>
-                <repository>
-                    <id>packagecloud.releases</id>
-                    <url>packagecloud+https://packagecloud.io/michal-asoft/releases</url>
-                </repository>
-                <snapshotRepository>
-                    <id>packagecloud.snapshots</id>
-                    <url>packagecloud+https://packagecloud.io/michal-asoft/snapshots</url>
-                </snapshotRepository>
-            </distributionManagement>
-
+            <id>test</id>
+            <properties>
+                <TEST_HOST>test.example.com</TEST_HOST>
+            </properties>
         </profile>
         <profile>
-            <id>nexus</id>
-            <distributionManagement>
-                <repository>
-                    <id>nexus-release</id>
-                    <url>http://localhost:8081/repository/nexus-release/</url>
-                </repository>
-                <snapshotRepository>
-                    <id>nexus-snapshot</id>
-                    <url>http://localhost:8081/repository/nexus-snapshot/</url>
-                </snapshotRepository>
-            </distributionManagement>
+            <id>prod</id>
+            <properties>
+                <TEST_HOST>producton.example.com</TEST_HOST>
+            </properties>
         </profile>
     </profiles>
 
@@ -107,6 +106,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>flatten-maven-plugin</artifactId>
+<!--                <version>RELEASE</version>-->
                 <configuration>
                     <flattenMode>bom</flattenMode>
                 </configuration>
@@ -131,26 +131,13 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.0.0-M2</version>
-                <executions>
-                    <execution>
-                        <id>enforce-env-requirements</id>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <requireJavaVersion>
-                                    <version>[1.8,)</version>
-                                </requireJavaVersion>
-                                <requireMavenVersion>
-                                    <version>[3.5,)</version>
-                                </requireMavenVersion>
-                            </rules>
-                        </configuration>
-                    </execution>
-                </executions>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.0</version>
+                <configuration>
+                    <enviromentVariables>
+                        <TEST_HOST>localhost.example.com</TEST_HOST>
+                    </enviromentVariables>
+                </configuration>
             </plugin>
         </plugins>
     </build>
