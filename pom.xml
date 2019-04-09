@@ -11,7 +11,7 @@
 
 
     <properties>
-        <revision>1.1-SNAPSHOT</revision>
+        <revision>1.1</revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>8</java.version>
@@ -52,16 +52,28 @@
     </dependencyManagement>
 
 
+<!--    <repositories>-->
+<!--        <repository>-->
+<!--            <id>nexus-snapshot</id>-->
+<!--            <url>http://localhost:8081/repository/nexus-snapshot/</url>-->
+<!--            <snapshots>-->
+<!--                <enabled>true</enabled>-->
+<!--            </snapshots>-->
+<!--        </repository>-->
+<!--    </repositories>-->
+
     <distributionManagement>
-        <repository>
-            <id>packagecloud.releases</id>
-            <url>packagecloud+https://packagecloud.io/michal-asoft/releases</url>
-        </repository>
         <snapshotRepository>
-            <id>packagecloud.snapshots</id>
-            <url>packagecloud+https://packagecloud.io/michal-asoft/snapshots</url>
+            <id>nexus-snapshot</id>
+            <url>http://localhost:8081/repository/nexus-snapshot/</url>
         </snapshotRepository>
+        <repository>
+            <id>nexus-release</id>
+            <url>http://localhost:8081/repository/nexus-release/</url>
+        </repository>
     </distributionManagement>
+
+
     <build>
         <extensions>
             <extension>
